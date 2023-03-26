@@ -37,6 +37,7 @@ public class MiVentana extends JFrame {
 	JPanel registro;
 	JPanel perfil;
 	JPanel accesoPermitido;
+	JPanel ayuda;
 	String nombre;
 	
 	public MiVentana() {
@@ -118,12 +119,12 @@ public class MiVentana extends JFrame {
         JTextField emailField = new JTextField();
         emailField.setBounds(120, 80, 200, 20);
 
-        JLabel passwordLabel = new JLabel("Contraseña:");
+        JLabel passwordLabel = new JLabel("ContraseÃ±a:");
         passwordLabel.setBounds(20, 110, 100, 20);
         JPasswordField passwordField = new JPasswordField();
         passwordField.setBounds(120, 110, 200, 20);
 
-        JLabel confirmPasswordLabel = new JLabel("Confirmar contraseña:");
+        JLabel confirmPasswordLabel = new JLabel("Confirmar contraseÃ±a:");
         confirmPasswordLabel.setBounds(20, 140, 150, 20);
         JPasswordField confirmPasswordField = new JPasswordField();
         confirmPasswordField.setBounds(170, 140, 150, 20);
@@ -187,13 +188,13 @@ public class MiVentana extends JFrame {
 		usuario.setBackground(Color.GREEN);
 		login.add(usuario);
 		
-		JLabel iniciarcontraseña = new JLabel("Contraseña",JLabel.CENTER);
-		iniciarcontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		iniciarcontraseña.setSize(250, 30);
-		iniciarcontraseña.setLocation(75, 155);
-		iniciarcontraseña.setOpaque(true);
-		iniciarcontraseña.setBackground(Color.GREEN);
-		login.add(iniciarcontraseña);
+		JLabel iniciarcontraseÃ±a = new JLabel("ContraseÃ±a",JLabel.CENTER);
+		iniciarcontraseÃ±a.setFont(new Font("Comic Sans", Font.BOLD,16));
+		iniciarcontraseÃ±a.setSize(250, 30);
+		iniciarcontraseÃ±a.setLocation(75, 155);
+		iniciarcontraseÃ±a.setOpaque(true);
+		iniciarcontraseÃ±a.setBackground(Color.GREEN);
+		login.add(iniciarcontraseÃ±a);
 		
 		JButton entrarcuentar = new JButton();
 		entrarcuentar.setText("Aceptar");
@@ -312,21 +313,21 @@ public class MiVentana extends JFrame {
 		correoregistro.setBackground(Color.GREEN);
 		registro.add(correoregistro);
 		
-		JLabel registrocontraseña = new JLabel("Ingrese contraseña",JLabel.CENTER);
-		registrocontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		registrocontraseña.setSize(250, 30);
-		registrocontraseña.setLocation(75, 290);
-		registrocontraseña.setOpaque(true);
-		registrocontraseña.setBackground(Color.GREEN);
-		registro.add(registrocontraseña);
+		JLabel registrocontraseÃ±a = new JLabel("Ingrese contraseÃ±a",JLabel.CENTER);
+		registrocontraseÃ±a.setFont(new Font("Comic Sans", Font.BOLD,16));
+		registrocontraseÃ±a.setSize(250, 30);
+		registrocontraseÃ±a.setLocation(75, 290);
+		registrocontraseÃ±a.setOpaque(true);
+		registrocontraseÃ±a.setBackground(Color.GREEN);
+		registro.add(registrocontraseÃ±a);
 		
-		JLabel repetircontraseña = new JLabel("Repetir contraseña",JLabel.CENTER);
-		repetircontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		repetircontraseña.setSize(250, 30);
-		repetircontraseña.setLocation(75, 360);
-		repetircontraseña.setOpaque(true);
-		repetircontraseña.setBackground(Color.GREEN);
-		registro.add(repetircontraseña);
+		JLabel repetircontraseÃ±a = new JLabel("Repetir contraseÃ±a",JLabel.CENTER);
+		repetircontraseÃ±a.setFont(new Font("Comic Sans", Font.BOLD,16));
+		repetircontraseÃ±a.setSize(250, 30);
+		repetircontraseÃ±a.setLocation(75, 360);
+		repetircontraseÃ±a.setOpaque(true);
+		repetircontraseÃ±a.setBackground(Color.GREEN);
+		registro.add(repetircontraseÃ±a);
 
 		//Campo Para Escribir
 		//Nombres
@@ -347,7 +348,7 @@ public class MiVentana extends JFrame {
 		correo.setLocation(75, 255);
 		registro.add(correo);
 		
-		//contraseña
+		//contraseï¿½a
 		JPasswordField password = new JPasswordField();
 		password.setSize(250, 30);
 		password.setLocation(75, 325);
@@ -393,7 +394,7 @@ public class MiVentana extends JFrame {
 				int errores=0;
 				
 					if(password.toString() != repetirpassword.toString()) {
-						JOptionPane.showMessageDialog(finalregistro,"Las contraseñas no coinciden. Intenta denuevo.");
+						JOptionPane.showMessageDialog(finalregistro,"Las contraseÃ±as no coinciden. Intenta denuevo.");
 						errores++;
 					}
 					
@@ -411,6 +412,60 @@ public class MiVentana extends JFrame {
 		revalidate();
 	}
 	
+	public void Ayuda() {
+		ayuda = new JPanel();
+        ayuda.setSize(400, 290);
+        ayuda.setLocation(50, 50);
+        ayuda.setLayout(null);
+        ayuda.setBackground(Color.ORANGE);
+        
+        
+        JLabel instrucciones1 = new JLabel("1-Hacer click en la opcion Usuarios en el menu superior");
+        instrucciones1.setFont(new Font("Comic Sans", Font.BOLD,12));
+        instrucciones1.setBounds(20, 20, 400, 20);
+       
+
+        JLabel instrucciones2 = new JLabel("2-Hacer click en la opcion crear Usuario en el menu desplegado");
+        instrucciones2.setFont(new Font("Comic Sans", Font.BOLD,12));
+        instrucciones2.setBounds(20, 50, 450, 20);
+       
+
+        JLabel instrucciones3 = new JLabel("3-Llenar los campos solicitados");
+        instrucciones3.setFont(new Font("Comic Sans", Font.BOLD,12));
+        instrucciones3.setBounds(20, 80, 300, 20);
+        
+
+        JLabel instrucciones4 = new JLabel("4-Hacer click en el boton aceptar");
+        instrucciones4.setFont(new Font("Comic Sans", Font.BOLD,12));
+        instrucciones4.setBounds(20, 110,350, 20);
+       
+
+        JLabel instrucciones5 = new JLabel("5-Listo, el usuario se ha creado");
+        instrucciones5.setFont(new Font("Comic Sans", Font.BOLD,12));
+        instrucciones5.setBounds(20, 140, 300, 20);
+        
+        ayuda.add(instrucciones1);
+      
+        ayuda.add(instrucciones2);
+     
+        ayuda.add(instrucciones3);
+       
+        ayuda.add(instrucciones4);
+      
+        ayuda.add(instrucciones5);
+       
+               
+		
+        anterior=actual;
+		actual=ayuda;
+		remove(anterior);
+		add(actual);
+		
+		repaint();
+		revalidate();
+		
+		
+	}
 
 	public void Perfil() {
 		JMenu cuentaMenu = new JMenu("Cuenta");
@@ -471,6 +526,15 @@ public class MiVentana extends JFrame {
 		    }
 		});
 		
+		manualMenuItem.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        
+		        Ayuda();
+		    }
+		});
+		
+		
 		perfil = new JPanel();
 		perfil.setSize(525,790);
 		perfil.setLocation(0,0);
@@ -484,6 +548,8 @@ public class MiVentana extends JFrame {
 		
 		repaint();
 		revalidate();
+		
+		
 
 	}
 
