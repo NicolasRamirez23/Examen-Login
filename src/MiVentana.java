@@ -40,7 +40,7 @@ public class MiVentana extends JFrame {
 	JPanel registro;
 	JPanel perfil;
 	JPanel accesoPermitido;
-	JPanel listUsers;
+    JPanel listUsers;
 	JPanel ayuda;
 	String nombre;
 	
@@ -194,6 +194,7 @@ public class MiVentana extends JFrame {
 		usuario.setBackground(Color.GREEN);
 		login.add(usuario);
 		
+
 		JLabel iniciarcontraseña = new JLabel("ContraseÃ±a",JLabel.CENTER);
 		iniciarcontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
 		iniciarcontraseña.setSize(250, 30);
@@ -201,6 +202,9 @@ public class MiVentana extends JFrame {
 		iniciarcontraseña.setOpaque(true);
 		iniciarcontraseña.setBackground(Color.GREEN);
 		login.add(iniciarcontraseña);
+
+		
+
 		
 		JButton entrarcuentar = new JButton();
 		entrarcuentar.setText("Aceptar");
@@ -321,7 +325,10 @@ public class MiVentana extends JFrame {
 		correoregistro.setBackground(Color.GREEN);
 		registro.add(correoregistro);
 		
-		JLabel registrocontraseña = new JLabel("Ingrese contraseÃ±a",JLabel.CENTER);
+
+		
+
+		JLabel registrocontraseña = new JLabel("Ingrese contraseña",JLabel.CENTER);
 		registrocontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
 		registrocontraseña.setSize(250, 30);
 		registrocontraseña.setLocation(75, 290);
@@ -329,13 +336,14 @@ public class MiVentana extends JFrame {
 		registrocontraseña.setBackground(Color.GREEN);
 		registro.add(registrocontraseña);
 		
-		JLabel repetircontraseña = new JLabel("Repetir contraseÃ±a",JLabel.CENTER);
+		JLabel repetircontraseña = new JLabel("Repetir contraseña",JLabel.CENTER);
 		repetircontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
 		repetircontraseña.setSize(250, 30);
 		repetircontraseña.setLocation(75, 360);
 		repetircontraseña.setOpaque(true);
 		repetircontraseña.setBackground(Color.GREEN);
 		registro.add(repetircontraseña);
+
 
 		//Campo Para Escribir
 		//Nombres
@@ -443,7 +451,8 @@ public class MiVentana extends JFrame {
 		revalidate();
 	}
 	
-	public void ListaUsuario() {
+
+public void ListaUsuario() {
 		
 		listUsers = new JPanel();
 		listUsers.setSize(400, 550);
@@ -504,6 +513,7 @@ public class MiVentana extends JFrame {
 		
 	}
 	
+
 	
 	
 	
@@ -665,6 +675,7 @@ public class MiVentana extends JFrame {
 		    }
 		});
 		
+
 		listaUsuarioMenuItem.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
@@ -674,6 +685,7 @@ public class MiVentana extends JFrame {
 		});
 		
 		
+
 		anterior=actual;
 		actual=perfil;
 		remove(anterior);

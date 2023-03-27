@@ -1,1 +1,2 @@
-nicolas,ramirez,nira_21@alu.uabcs.mx,niko1
+Nicolas,Ramirez,nira_21@alu.uabcs.mx,niko1
+Andres,Ramirez,andrew@hotmail.com,andres1
