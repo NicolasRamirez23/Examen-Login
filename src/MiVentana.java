@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.ButtonGroup;
@@ -59,10 +61,13 @@ public class MiVentana extends JFrame {
 	JPanel accesoPermitido;
     JPanel listaUsuarios;
 	JPanel ayuda;
-	String nombre;
+	String nombre,apellidos,email,contrasena;
 	DefaultTableModel tableModel;
 	JTable table;
 	ArrayList<String[]> usersList;
+	String numUsuario;
+	Boolean flag1=false;
+	int cambios=0;
 
 	private DefaultTableModel modelo;
 
@@ -165,7 +170,7 @@ public class MiVentana extends JFrame {
         emailField.setBounds(200, 360, 200, 20);
 
 
-        JLabel passwordLabel = new JLabel("Contraseña:");
+        JLabel passwordLabel = new JLabel("Contrasena:");
 
         
 
@@ -174,7 +179,7 @@ public class MiVentana extends JFrame {
         passwordField.setBounds(200, 390, 200, 20);
 
 
-        JLabel confirmPasswordLabel = new JLabel("Confirmar contraseña:");
+        JLabel confirmPasswordLabel = new JLabel("Confirmar contrasena:");
 
         
 
@@ -187,7 +192,6 @@ public class MiVentana extends JFrame {
 
         JButton updateButton = new JButton("Actualizar datos");
         updateButton.setBounds(260, 450, 130, 30);
-
         miCuentaPanel.add(nameLabel);
         miCuentaPanel.add(nameField);
         miCuentaPanel.add(apellidoLabel);
@@ -207,6 +211,44 @@ public class MiVentana extends JFrame {
 		        
 		       Perfil();
 		    }
+		});
+        
+        updateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String pwd = new String (passwordField.getPassword());
+				BufferedReader reader;
+				
+				try{
+					
+					FileReader file = new FileReader("users.txt");
+					reader = new BufferedReader(file);
+					
+					String line = reader.readLine();
+					
+					while(line != null) {
+						
+						String data [] = line.split(",");
+						 
+						
+						
+
+						line = reader.readLine();
+						
+					}
+					
+					if(cambios>0) {
+						JOptionPane.showMessageDialog(null,"Datos cambiados con exito","Validacion", JOptionPane.CLOSED_OPTION );
+					}
+						
+						
+					
+					
+				} catch(IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
 		});
         
         
@@ -246,13 +288,13 @@ public class MiVentana extends JFrame {
 		
 
 
-		JLabel iniciarcontraseña = new JLabel("Contraseña",JLabel.CENTER);
-		iniciarcontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		iniciarcontraseña.setSize(250, 30);
-		iniciarcontraseña.setLocation(75, 155);
-		iniciarcontraseña.setOpaque(true);
-		iniciarcontraseña.setBackground(Color.GREEN);
-		login.add(iniciarcontraseña);
+		JLabel iniciarcontrasena = new JLabel("Contraseña",JLabel.CENTER);
+		iniciarcontrasena.setFont(new Font("Comic Sans", Font.BOLD,16));
+		iniciarcontrasena.setSize(250, 30);
+		iniciarcontrasena.setLocation(75, 155);
+		iniciarcontrasena.setOpaque(true);
+		iniciarcontrasena.setBackground(Color.GREEN);
+		login.add(iniciarcontrasena);
 
 		
 
@@ -300,6 +342,8 @@ public class MiVentana extends JFrame {
 						if( user.equals(data[0]) ) {
 							if( pwd.equals(data[3]) ) {
 								flag = true;
+								
+								
 							}
 						} 
 						
@@ -342,18 +386,7 @@ public class MiVentana extends JFrame {
 		registro.setLayout(null);
 		registro.setBackground(Color.RED);
 		
-		JLabel editarPerfil = new JLabel();
-		editarPerfil.setText("Editar Perfil");
-		editarPerfil.setBounds(100, 10, 300, 80);
-		editarPerfil.setHorizontalAlignment(SwingConstants.CENTER);
-		editarPerfil.setForeground(Color.BLACK);
-		editarPerfil.setFont(new Font("cooper black",0,25));
 		
-		perfil.add(editarPerfil);
-		
-		JLabel iconoLista = new JLabel(new ImageIcon("iconoLista.JPG"));
-		iconoLista.setBounds(165, 80, 170, 170);
-		perfil.add(iconoLista);
 		
 		JLabel titleregistro = new JLabel("Registro de Nuevo Usuario",JLabel.CENTER);
 		titleregistro.setFont(new Font("Comic Sans", Font.BOLD,20));
@@ -389,15 +422,15 @@ public class MiVentana extends JFrame {
 		registro.add(correoregistro);
 		
 
-		JLabel registrocontraseña = new JLabel("Ingrese contraseña",JLabel.CENTER);
-		registrocontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		registrocontraseña.setSize(250, 30);
-		registrocontraseña.setLocation(75, 290);
-		registrocontraseña.setOpaque(true);
-		registrocontraseña.setBackground(Color.GREEN);
-		registro.add(registrocontraseña);
+		JLabel registrocontrasena = new JLabel("Ingrese contrasena",JLabel.CENTER);
+		registrocontrasena.setFont(new Font("Comic Sans", Font.BOLD,16));
+		registrocontrasena.setSize(250, 30);
+		registrocontrasena.setLocation(75, 290);
+		registrocontrasena.setOpaque(true);
+		registrocontrasena.setBackground(Color.GREEN);
+		registro.add(registrocontrasena);
 		
-		JLabel repetircontrasena = new JLabel("Repetir contraseña",JLabel.CENTER);
+		JLabel repetircontrasena = new JLabel("Repetir contrasena",JLabel.CENTER);
 
 		
 
@@ -497,11 +530,8 @@ public class MiVentana extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Perfil();
-					
-							
-				repaint();
-				revalidate();
 			}
+			
 			
 		});
 		
@@ -811,4 +841,38 @@ public class MiVentana extends JFrame {
 
 	}
 
+
+	public void verificarCorreo() {
+
+		BufferedReader reader;
+		
+		try{
+			
+			FileReader file = new FileReader("users.txt");
+			reader = new BufferedReader(file);
+			
+			String line = reader.readLine();
+			
+			while(line != null) {
+				
+				String data [] = line.split(",");
+				 
+				if(email.equals(data[2]) ) {
+					flag1 = true;	
+				} 
+				
+				line = reader.readLine();
+				
+			}
+			
+			if(flag1==true) {
+				JOptionPane.showMessageDialog(null,"Este email ya esta en uso.","Error", JOptionPane.CLOSED_OPTION );
+				
+			}
+			
+			
+		} catch(IOException e1) {
+			e1.printStackTrace();
+		}
+	}
 }
