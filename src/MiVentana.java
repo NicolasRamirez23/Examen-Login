@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.AbstractAction;
 import javax.swing.AbstractCellEditor;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
@@ -428,7 +431,7 @@ public class MiVentana extends JFrame {
 		correo.setLocation(75, 255);
 		registro.add(correo);
 		
-		//contraseÃ¯Â¿Â½a
+		//contraseña
 		JPasswordField password = new JPasswordField();
 		password.setSize(250, 30);
 		password.setLocation(75, 325);
@@ -473,19 +476,38 @@ public class MiVentana extends JFrame {
 		cancelar.setBackground(Color.white);
 		registro.add(cancelar);
 		
-		String contra1 = password.toString();
-		String contra2 = repetirpassword.toString();
+		String contra1 = new String(password.getPassword());
+		String contra2 = new String(repetirpassword.getPassword());
 		
 		finalregistro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int errores=0;
 				
-					if(password.toString() != repetirpassword.toString()) {
-						JOptionPane.showMessageDialog(finalregistro,"Las contraseÃÂ±as no coinciden. Intenta denuevo.");
-						errores++;
-					}
+				if (!contra1.equals(contra2)) {
+				    JOptionPane.showMessageDialog(finalregistro, "Las contraseñas no coinciden. Intenta denuevo.");
+				    errores++;
+				} else {
+				    
+				}
+						
+						
 					
+					if (errores == 0) {
+			            try (PrintWriter out = new PrintWriter(new FileWriter("users.txt", true))) {
+			                out.println(username.getText() + "," + apellidos.getText() + "," + correo.getText() + "," + contra1+","+contra2);
+			                JOptionPane.showMessageDialog(finalregistro, "Registro exitoso.");
+			                // Limpiar los campos del formulario
+			                username.setText("");
+			                apellidos.setText("");
+			                correo.setText("");
+			                password.setText("");
+			                repetirpassword.setText("");
+			            } catch (IOException ex) {
+			                ex.printStackTrace();
+			                JOptionPane.showMessageDialog(finalregistro, "Error al guardar el registro.");
+			            }
+			        }
 							
 				repaint();
 				revalidate();
@@ -582,11 +604,7 @@ public class MiVentana extends JFrame {
    	});
    	
 
-   	
-   	 
-   	
-
-   	  String[] columnNames = {"Nombre", "Apellido", "Correo", "Contraseña", "Eliminar"};
+   	String[] columnNames = {"Nombre", "Apellido", "Correo", "Contraseña", "Eliminar"};
    	DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
    	try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
@@ -594,14 +612,9 @@ public class MiVentana extends JFrame {
    	    while ((line = br.readLine()) != null) {
    	        String[] data = line.trim().split(",");
    	        if (data.length == 4) {
-   	            JButton deleteButton = new JButton("Eliminar");
-   	            deleteButton.addActionListener(new ActionListener() {
-   	                @Override
-   	                public void actionPerformed(ActionEvent e) {
-   	                    model.removeRow(table.getSelectedRow());
-   	                }
-   	            });
-   	            Object[] rowData = {data[0], data[1], data[2], data[3], deleteButton};
+   	            Object[] rowData = new Object[data.length + 1];
+   	            System.arraycopy(data, 0, rowData, 0, data.length);
+   	            rowData[data.length] = "Eliminar";
    	            model.addRow(rowData);
    	        }
    	    }
@@ -610,9 +623,27 @@ public class MiVentana extends JFrame {
    	}
 
    	JTable table = new JTable(model);
+   	table.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+   	table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox()));
+   	table.addMouseListener(new MouseAdapter() {
+   	    @Override
+   	    public void mouseClicked(MouseEvent e) {
+   	        int column = table.getColumnModel().getColumnIndex("Eliminar");
+   	        int row = table.rowAtPoint(e.getPoint());
+   	     if (column == table.getColumnModel().getColumnIndex("Eliminar") && row != -1) {
+   	      model.removeRow(row);
+   	        }
+   	    }
+   	});
    	JScrollPane scrollPane = new JScrollPane(table);
    	scrollPane.setBounds(20, 300, 480, 100);
    	listaUsuarios.add(scrollPane, BorderLayout.CENTER);
+   	
+   	
+   	
+   	
+
+
    	
 
 	        

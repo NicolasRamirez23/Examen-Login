@@ -1,4 +1,4 @@
 Nicolas,Ramirez,nira_21@alu.uabcs.mx,niko1
 Andres,Ramirez,andrew@hotmail.com,andres1
 Dominic,Armendariz,oscr@arq.com,dom1
-Mama,Pinto,mam@af.com,mami1
+Mama,Pinto,mam@af.com,mami1rick,ortega,gugul,,
