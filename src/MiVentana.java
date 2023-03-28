@@ -9,10 +9,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EventObject;
+
+import java.util.ArrayList;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -59,7 +63,10 @@ public class MiVentana extends JFrame {
 	DefaultTableModel tableModel;
 	JTable table;
 	ArrayList<String[]> usersList;
+
 	private DefaultTableModel modelo;
+
+
 	
 	public MiVentana() {
 		this.setVisible(true);
@@ -157,12 +164,20 @@ public class MiVentana extends JFrame {
         JTextField emailField = new JTextField();
         emailField.setBounds(200, 360, 200, 20);
 
+
         JLabel passwordLabel = new JLabel("Contraseña:");
+
+        
+
         passwordLabel.setBounds(70, 390, 100, 20);
         JPasswordField passwordField = new JPasswordField();
         passwordField.setBounds(200, 390, 200, 20);
 
+
         JLabel confirmPasswordLabel = new JLabel("Confirmar contraseña:");
+
+        
+
         confirmPasswordLabel.setBounds(70, 420, 150, 20);
         JPasswordField confirmPasswordField = new JPasswordField();
         confirmPasswordField.setBounds(200, 420, 150, 20);
@@ -230,6 +245,7 @@ public class MiVentana extends JFrame {
 		login.add(usuario);
 		
 
+
 		JLabel iniciarcontraseña = new JLabel("Contraseña",JLabel.CENTER);
 		iniciarcontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
 		iniciarcontraseña.setSize(250, 30);
@@ -237,6 +253,9 @@ public class MiVentana extends JFrame {
 		iniciarcontraseña.setOpaque(true);
 		iniciarcontraseña.setBackground(Color.GREEN);
 		login.add(iniciarcontraseña);
+
+		
+
 
 		JButton entrarcuentar = new JButton();
 		entrarcuentar.setText("Aceptar");
@@ -369,6 +388,7 @@ public class MiVentana extends JFrame {
 		correoregistro.setBackground(Color.GREEN);
 		registro.add(correoregistro);
 		
+
 		JLabel registrocontraseña = new JLabel("Ingrese contraseña",JLabel.CENTER);
 		registrocontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
 		registrocontraseña.setSize(250, 30);
@@ -378,6 +398,9 @@ public class MiVentana extends JFrame {
 		registro.add(registrocontraseña);
 		
 		JLabel repetircontrasena = new JLabel("Repetir contraseña",JLabel.CENTER);
+
+		
+
 		repetircontrasena.setFont(new Font("Comic Sans", Font.BOLD,16));
 		repetircontrasena.setSize(250, 30);
 		repetircontrasena.setLocation(75, 360);
@@ -501,6 +524,7 @@ public class MiVentana extends JFrame {
 	        listaUsuarios.setLayout(null);
 	        listaUsuarios.setBackground(Color.GREEN);
 	        
+
 	        JLabel listausuario= new JLabel("Lista de usuarios");
    		 listausuario.setFont(new Font("Comic Sans", Font.BOLD,30));
    		 listausuario.setBounds(130, 10, 300, 50);
@@ -590,6 +614,10 @@ public class MiVentana extends JFrame {
    	scrollPane.setBounds(20, 300, 480, 100);
    	listaUsuarios.add(scrollPane, BorderLayout.CENTER);
    	
+
+	        
+	        
+
 	        anterior=actual;
 			actual=listaUsuarios;
 			remove(anterior);
