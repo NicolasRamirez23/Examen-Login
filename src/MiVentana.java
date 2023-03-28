@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -6,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,9 +42,12 @@ public class MiVentana extends JFrame {
 	JPanel registro;
 	JPanel perfil;
 	JPanel accesoPermitido;
-    JPanel listUsers;
+    JPanel listaUsuarios;
 	JPanel ayuda;
 	String nombre;
+	DefaultTableModel tableModel;
+	JTable table;
+	ArrayList<String[]> usersList;
 	
 	public MiVentana() {
 		this.setVisible(true);
@@ -52,6 +57,8 @@ public class MiVentana extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.getContentPane().setBackground(Color.ORANGE);
+		
+		
 	
 		Bienvenida();
 		timer();
@@ -105,41 +112,54 @@ public class MiVentana extends JFrame {
 	
 	public void menuMiCuenta() {
 		miCuentaPanel = new JPanel();
-        miCuentaPanel.setSize(525, 290);
-        miCuentaPanel.setLocation(0, 350);
-        miCuentaPanel.setLayout(null);
-        miCuentaPanel.setBackground(Color.GREEN);
+		miCuentaPanel.setSize(525,700);
+		miCuentaPanel.setLocation(0,0);
+		miCuentaPanel.setLayout(null);
+		miCuentaPanel.setBackground(Color.ORANGE);
+		
+		JLabel editarPerfil = new JLabel();
+		editarPerfil.setText("Bienvenido "+ nombre);
+		editarPerfil.setBounds(100, 10, 300, 80);
+		editarPerfil.setHorizontalAlignment(SwingConstants.CENTER);
+		editarPerfil.setForeground(Color.BLACK);
+		editarPerfil.setFont(new Font("cooper black",0,25));
+		
+		miCuentaPanel.add(editarPerfil);
+		
+		JLabel iconoLista = new JLabel(new ImageIcon("iconoLista.JPG"));
+		iconoLista.setBounds(165, 80, 170, 170);
+		miCuentaPanel.add(iconoLista);
 
         JLabel nameLabel = new JLabel("Nombre:");
-        nameLabel.setBounds(20, 20, 100, 20);
+        nameLabel.setBounds(70, 300, 100, 20);
         JTextField nameField = new JTextField();
-        nameField.setBounds(120, 20, 200, 20);
+        nameField.setBounds(200, 300, 200, 20);
 
         JLabel apellidoLabel = new JLabel("Apellido:");
-        apellidoLabel.setBounds(20, 50, 100, 20);
+        apellidoLabel.setBounds(70, 330, 100, 20);
         JTextField apellidoField = new JTextField();
-        apellidoField.setBounds(120, 50, 200, 20);
+        apellidoField.setBounds(200, 330, 200, 20);
 
         JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(20, 80, 100, 20);
+        emailLabel.setBounds(70, 360, 100, 20);
         JTextField emailField = new JTextField();
-        emailField.setBounds(120, 80, 200, 20);
+        emailField.setBounds(200, 360, 200, 20);
 
-        JLabel passwordLabel = new JLabel("ContraseÃ±a:");
-        passwordLabel.setBounds(20, 110, 100, 20);
+        JLabel passwordLabel = new JLabel("Contrase�a:");
+        passwordLabel.setBounds(70, 390, 100, 20);
         JPasswordField passwordField = new JPasswordField();
-        passwordField.setBounds(120, 110, 200, 20);
+        passwordField.setBounds(200, 390, 200, 20);
 
-        JLabel confirmPasswordLabel = new JLabel("Confirmar contraseÃ±a:");
-        confirmPasswordLabel.setBounds(20, 140, 150, 20);
+        JLabel confirmPasswordLabel = new JLabel("Confirmar contrase�a:");
+        confirmPasswordLabel.setBounds(70, 420, 150, 20);
         JPasswordField confirmPasswordField = new JPasswordField();
-        confirmPasswordField.setBounds(170, 140, 150, 20);
+        confirmPasswordField.setBounds(200, 420, 150, 20);
 
         JButton cancelButton = new JButton("Cancelar");
-        cancelButton.setBounds(150, 180, 100, 30);
+        cancelButton.setBounds(150, 450, 100, 30);
 
         JButton updateButton = new JButton("Actualizar datos");
-        updateButton.setBounds(260, 180, 130, 30);
+        updateButton.setBounds(260, 450, 130, 30);
 
         miCuentaPanel.add(nameLabel);
         miCuentaPanel.add(nameField);
@@ -161,11 +181,14 @@ public class MiVentana extends JFrame {
 		       Perfil();
 		    }
 		});
-      
+        
+        
         anterior = actual;
         actual = miCuentaPanel;
-        remove(perfil);
+        
+        remove(anterior);
         add(actual);
+        
         revalidate();
         repaint();
 	}
@@ -195,17 +218,14 @@ public class MiVentana extends JFrame {
 		login.add(usuario);
 		
 
-		JLabel iniciarcontraseña = new JLabel("ContraseÃ±a",JLabel.CENTER);
-		iniciarcontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		iniciarcontraseña.setSize(250, 30);
-		iniciarcontraseña.setLocation(75, 155);
-		iniciarcontraseña.setOpaque(true);
-		iniciarcontraseña.setBackground(Color.GREEN);
-		login.add(iniciarcontraseña);
+		JLabel iniciarcontrase�a = new JLabel("Contrase�a",JLabel.CENTER);
+		iniciarcontrase�a.setFont(new Font("Comic Sans", Font.BOLD,16));
+		iniciarcontrase�a.setSize(250, 30);
+		iniciarcontrase�a.setLocation(75, 155);
+		iniciarcontrase�a.setOpaque(true);
+		iniciarcontrase�a.setBackground(Color.GREEN);
+		login.add(iniciarcontrase�a);
 
-		
-
-		
 		JButton entrarcuentar = new JButton();
 		entrarcuentar.setText("Aceptar");
 		entrarcuentar.setSize(100, 40);
@@ -282,15 +302,27 @@ public class MiVentana extends JFrame {
 		revalidate();
 }	
 	
-	
-	
-	
+
 	public void menuCrearUsuario() {
+		
 		registro = new JPanel();
 		registro.setSize(400,550);
 		registro.setLocation(50,50);
 		registro.setLayout(null);
 		registro.setBackground(Color.RED);
+		
+		JLabel editarPerfil = new JLabel();
+		editarPerfil.setText("Editar Perfil");
+		editarPerfil.setBounds(100, 10, 300, 80);
+		editarPerfil.setHorizontalAlignment(SwingConstants.CENTER);
+		editarPerfil.setForeground(Color.BLACK);
+		editarPerfil.setFont(new Font("cooper black",0,25));
+		
+		perfil.add(editarPerfil);
+		
+		JLabel iconoLista = new JLabel(new ImageIcon("iconoLista.JPG"));
+		iconoLista.setBounds(165, 80, 170, 170);
+		perfil.add(iconoLista);
 		
 		JLabel titleregistro = new JLabel("Registro de Nuevo Usuario",JLabel.CENTER);
 		titleregistro.setFont(new Font("Comic Sans", Font.BOLD,20));
@@ -325,24 +357,21 @@ public class MiVentana extends JFrame {
 		correoregistro.setBackground(Color.GREEN);
 		registro.add(correoregistro);
 		
-
+		JLabel registrocontrase�a = new JLabel("Ingrese contrase�a",JLabel.CENTER);
+		registrocontrase�a.setFont(new Font("Comic Sans", Font.BOLD,16));
+		registrocontrase�a.setSize(250, 30);
+		registrocontrase�a.setLocation(75, 290);
+		registrocontrase�a.setOpaque(true);
+		registrocontrase�a.setBackground(Color.GREEN);
+		registro.add(registrocontrase�a);
 		
-
-		JLabel registrocontraseña = new JLabel("Ingrese contraseña",JLabel.CENTER);
-		registrocontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		registrocontraseña.setSize(250, 30);
-		registrocontraseña.setLocation(75, 290);
-		registrocontraseña.setOpaque(true);
-		registrocontraseña.setBackground(Color.GREEN);
-		registro.add(registrocontraseña);
-		
-		JLabel repetircontraseña = new JLabel("Repetir contraseña",JLabel.CENTER);
-		repetircontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		repetircontraseña.setSize(250, 30);
-		repetircontraseña.setLocation(75, 360);
-		repetircontraseña.setOpaque(true);
-		repetircontraseña.setBackground(Color.GREEN);
-		registro.add(repetircontraseña);
+		JLabel repetircontrasena = new JLabel("Repetir contrase�a",JLabel.CENTER);
+		repetircontrasena.setFont(new Font("Comic Sans", Font.BOLD,16));
+		repetircontrasena.setSize(250, 30);
+		repetircontrasena.setLocation(75, 360);
+		repetircontrasena.setOpaque(true);
+		repetircontrasena.setBackground(Color.GREEN);
+		registro.add(repetircontrasena);
 
 
 		//Campo Para Escribir
@@ -451,78 +480,53 @@ public class MiVentana extends JFrame {
 		revalidate();
 	}
 	
-
-public void ListaUsuario() {
+	
+	public void ListaUsuario() {
 		
-		listUsers = new JPanel();
-		listUsers.setSize(400, 550);
-		listUsers.setLocation(50, 50);
-		listUsers.setLayout(null);
-		listUsers.setBackground(Color.ORANGE);	
-		  
-		
-		 String[] titulos = {"Nombre", "Apellidos", "Correo", "Contraseña", "Acciones"};
-	        Object[][] datos = {
-	                {"Juan", "Pérez", "_21@alu.uabcs.mx", "1234", new JButton("Eliminar")},
-	                {"María", "González", "_21@alu.uabcs.mx", "5678", new JButton("Eliminar")},
-	                {"Pedro", "Messi", "_21@alu.uabcs.mx", "9012", new JButton("Eliminar")},
-	                {"Goku", "Martínez", "_21@alu.uabcs.mx", "3456", new JButton("Eliminar")},
-	                {"Rick", "García", "_21@alu.uabcs.mx", "7890", new JButton("Eliminar")}
-	        };
+	        listaUsuarios = new JPanel(new BorderLayout());
+	        listaUsuarios.setSize(525,700);
+	        listaUsuarios.setLocation(0,0);
+	        listaUsuarios.setLayout(null);
+	        listaUsuarios.setBackground(Color.GREEN);
 	        
-	        JTable tabla = new JTable(datos, titulos);
-	        TableColumn columna = tabla.getColumnModel().getColumn(4);
-	        columna.setCellRenderer(tabla.getDefaultRenderer(JButton.class));
-	        columna.setCellEditor(tabla.getDefaultEditor(JButton.class));
-	        JScrollPane scrollPane = new JScrollPane(tabla);
-	        scrollPane.setBounds(10, 250, 400, 100);
-	        listUsers.add(scrollPane);
+	        String[] columnNames = {"Nombre", "Apellido", "Correo", "Contrase�a",};
+	        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 	        
-		 JLabel listausuario= new JLabel("Lista de usuarios");
-		 listausuario.setFont(new Font("Comic Sans", Font.BOLD,30));
-		 listausuario.setBounds(80, 10, 300, 50);
-		listUsers.add(listausuario);
-		
-		
-		
-		 JLabel editar = new JLabel("Editar");
-	     editar.setFont(new Font("Comic Sans", Font.BOLD,20));
-	     editar.setBounds(10, 30, 450, 100);
-	     listUsers.add(editar);
-	     
-	     
-	     
+	        try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
+	            String line;
+	            while ((line = br.readLine()) != null) {
+	                String[] data = line.trim().split(",");
+	                if (data.length == 4) {
+	                    model.addRow(data);
+	                }
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 	        
-	     JButton editBoton = new JButton();
-	     editBoton.setText("Editar a");
-	     editBoton.setSize(180, 50);
-	     editBoton.setLocation(100, 170);
-	     editBoton.setOpaque(true);
-	     editBoton.setBackground(Color.white);
-	     listUsers.add(editBoton);
-	     
-	   
-		    anterior=actual;
-			actual=listUsers;
+	        JTable table = new JTable(model);
+	        JScrollPane scrollPane = new JScrollPane(table);
+	        scrollPane.setBounds(20, 300, 480, 100);
+	        listaUsuarios.add(scrollPane, BorderLayout.CENTER);
+	        
+	        anterior=actual;
+			actual=listaUsuarios;
 			remove(anterior);
 			add(actual);
 			
 			repaint();
 			revalidate();
-		
-		
-	}
-	
-
-	
+	        
+	    }
 	
 	
 	public void Ayuda() {
+		remove(perfil);
 		ayuda = new JPanel();
         ayuda.setSize(400, 290);
         ayuda.setLocation(50, 50);
         ayuda.setLayout(null);
-        ayuda.setBackground(Color.ORANGE);
+        ayuda.setBackground(Color.GRAY);
         
         
         JLabel instrucciones1 = new JLabel("1-Hacer click en la opcion Usuarios en el menu superior");
@@ -590,7 +594,7 @@ public void ListaUsuario() {
 	
 	public void Perfil() {
 		perfil = new JPanel();
-		perfil.setSize(525,350);
+		perfil.setSize(525,700);
 		perfil.setLocation(0,0);
 		perfil.setLayout(null);
 		perfil.setBackground(Color.ORANGE);
