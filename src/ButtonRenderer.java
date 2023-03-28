@@ -61,8 +61,8 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
 
 		  public Object getCellEditorValue() {
 		    if (isPushed) {
-		      // AcciÃ³n de eliminar el valor seleccionado de la tabla
-		      // AquÃ­ debes agregar la lÃ³gica para eliminar el valor seleccionado de la tabla
+		      // Acción de eliminar el valor seleccionado de la tabla
+		      // Aquí debes agregar la lógica para eliminar el valor seleccionado de la tabla
 		    }
 		    isPushed = false;
 		    return new String(label);

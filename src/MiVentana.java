@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractCellEditor;
@@ -66,8 +68,6 @@ public class MiVentana extends JFrame {
 	DefaultTableModel tableModel;
 	JTable table;
 	ArrayList<String[]> usersList;
-
-	private DefaultTableModel modelo;
 
 
 	
@@ -225,6 +225,8 @@ public class MiVentana extends JFrame {
 	
 	
 	public void Login () {
+
+
 		login = new JPanel();
 		login.setSize(400,290);
 		login.setLocation(50,50);
@@ -249,13 +251,13 @@ public class MiVentana extends JFrame {
 		
 
 
-		JLabel iniciarcontraseña = new JLabel("Contraseña",JLabel.CENTER);
-		iniciarcontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		iniciarcontraseña.setSize(250, 30);
-		iniciarcontraseña.setLocation(75, 155);
-		iniciarcontraseña.setOpaque(true);
-		iniciarcontraseña.setBackground(Color.GREEN);
-		login.add(iniciarcontraseña);
+		JLabel iniciarcontrasena = new JLabel("Contraseña",JLabel.CENTER);
+		iniciarcontrasena.setFont(new Font("Comic Sans", Font.BOLD,16));
+		iniciarcontrasena.setSize(250, 30);
+		iniciarcontrasena.setLocation(75, 155);
+		iniciarcontrasena.setOpaque(true);
+		iniciarcontrasena.setBackground(Color.GREEN);
+		login.add(iniciarcontrasena);
 
 		
 
@@ -284,7 +286,6 @@ public class MiVentana extends JFrame {
 				// TODO Auto-generated method stub
 				String user = username.getText();
 				String pwd = new String (password.getPassword());
-				
 				BufferedReader reader;
 				
 				Boolean flag = false;
@@ -335,6 +336,7 @@ public class MiVentana extends JFrame {
 		repaint();
 		revalidate();
 }	
+	
 	
 
 	public void menuCrearUsuario() {
@@ -392,13 +394,13 @@ public class MiVentana extends JFrame {
 		registro.add(correoregistro);
 		
 
-		JLabel registrocontraseña = new JLabel("Ingrese contraseña",JLabel.CENTER);
-		registrocontraseña.setFont(new Font("Comic Sans", Font.BOLD,16));
-		registrocontraseña.setSize(250, 30);
-		registrocontraseña.setLocation(75, 290);
-		registrocontraseña.setOpaque(true);
-		registrocontraseña.setBackground(Color.GREEN);
-		registro.add(registrocontraseña);
+		JLabel registrocontrasena = new JLabel("Ingrese contraseña",JLabel.CENTER);
+		registrocontrasena.setFont(new Font("Comic Sans", Font.BOLD,16));
+		registrocontrasena.setSize(250, 30);
+		registrocontrasena.setLocation(75, 290);
+		registrocontrasena.setOpaque(true);
+		registrocontrasena.setBackground(Color.GREEN);
+		registro.add(registrocontrasena);
 		
 		JLabel repetircontrasena = new JLabel("Repetir contraseña",JLabel.CENTER);
 
@@ -442,23 +444,6 @@ public class MiVentana extends JFrame {
 		repetirpassword.setLocation(75, 395);
 		registro.add(repetirpassword);
 		
-		JLabel tyc = new JLabel("Terminos y condiciones",JLabel.CENTER);
-		tyc.setFont(new Font("Comic Sans", Font.BOLD,16));
-		tyc.setSize(250, 40);
-		tyc.setLocation(75, 430);
-		tyc.setOpaque(true);
-		tyc.setBackground(Color.GREEN);
-		registro.add(tyc);
-		
-		JRadioButton acepto = new JRadioButton("Acepto");
-		acepto.setSize(100, 20);
-		acepto.setLocation(95, 475);
-		acepto.setOpaque(true);
-		acepto.setBackground(Color.cyan);
-		registro.add(acepto);
-		
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(acepto);
 		
 		JButton finalregistro = new JButton();
 		finalregistro.setText("Aceptar");
@@ -476,37 +461,51 @@ public class MiVentana extends JFrame {
 		cancelar.setBackground(Color.white);
 		registro.add(cancelar);
 		
-		String contra1 = new String(password.getPassword());
-		String contra2 = new String(repetirpassword.getPassword());
-		
 		finalregistro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+			String contra1 = new String(password.getPassword());
+			String contra2 = new String(repetirpassword.getPassword());
+			System.out.println(contra1);
+			System.out.println(contra2);
 				int errores=0;
 				
 				if (!contra1.equals(contra2)) {
-				    JOptionPane.showMessageDialog(finalregistro, "Las contraseñas no coinciden. Intenta denuevo.");
 				    errores++;
-				} else {
-				    
+				} 
+				if(username.getText().length()<2) {
+					errores++;
 				}
-						
-						
-					
+				if(apellidos.getText().length()<2) {
+					errores++;
+				}
+				
+				Pattern pattern = Pattern
+		                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		 
+		        // El email a validar
+		 
+		        Matcher mather = pattern.matcher(correo.getText());
+		 
+		        if (mather.find() == false) {
+		            errores++;
+		        }
 					if (errores == 0) {
 			            try (PrintWriter out = new PrintWriter(new FileWriter("users.txt", true))) {
-			                out.println(username.getText() + "," + apellidos.getText() + "," + correo.getText() + "," + contra1+","+contra2);
+			                out.print("\n"+username.getText() + "," + apellidos.getText() + "," + correo.getText() + "," + contra1);
 			                JOptionPane.showMessageDialog(finalregistro, "Registro exitoso.");
 			                // Limpiar los campos del formulario
 			                username.setText("");
 			                apellidos.setText("");
 			                correo.setText("");
 			                password.setText("");
-			                repetirpassword.setText("");
 			            } catch (IOException ex) {
 			                ex.printStackTrace();
 			                JOptionPane.showMessageDialog(finalregistro, "Error al guardar el registro.");
 			            }
+			        }else {
+			        	JOptionPane.showMessageDialog(finalregistro, "Error al crear usuario. Por favor intente denuevo.");
 			        }
 							
 				repaint();
@@ -637,17 +636,7 @@ public class MiVentana extends JFrame {
    	});
    	JScrollPane scrollPane = new JScrollPane(table);
    	scrollPane.setBounds(20, 300, 480, 100);
-   	listaUsuarios.add(scrollPane, BorderLayout.CENTER);
-   	
-   	
-   	
-   	
-
-
-   	
-
-	        
-	        
+   	listaUsuarios.add(scrollPane, BorderLayout.CENTER);      
 
 	        anterior=actual;
 			actual=listaUsuarios;
